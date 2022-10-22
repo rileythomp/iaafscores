@@ -1,5 +1,5 @@
 <script>
-    import { results } from '../store.js';
+    import { results, warning } from '../store.js';
 
     let time = '12';
     let points = '';
@@ -20,25 +20,33 @@
         }
         
         fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?race=${race}&${argVal}`)
-        .then(response => response.json())
-        .then(data => {
-            if (time == '') {
-                let hours = Math.floor(data / 3600)
-                let minutes = Math.floor((data % 3600) / 60)
-                let seconds = data % 60
-                if (hours > 0) {
-                    seconds = Math.round(seconds)
-                    data = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-                } else if (minutes > 0) {
-                    seconds = Math.round(seconds)
-                    data = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-                } else {
-                    data = `${seconds.toFixed(2)}`
+        .then(response => {
+            response.json().then(data => {
+                if (response.status != 200) {
+                    $warning = data
+                    setTimeout(() => {
+                        $warning = ''
+                    }, 3000)
+                    return
                 }
-                $results = [...$results, {race: race, time: data, points: points}]
-            } else if (points == '') {
-                $results = [...$results, {race: race, time: time, points: data}]
-            }
+                if (time == '') {
+                    let hours = Math.floor(data / 3600)
+                    let minutes = Math.floor((data % 3600) / 60)
+                    let seconds = data % 60
+                    if (hours > 0) {
+                        seconds = Math.round(seconds)
+                        data = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+                    } else if (minutes > 0) {
+                        seconds = Math.round(seconds)
+                        data = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+                    } else {
+                        data = `${seconds.toFixed(2)}`
+                    }
+                    $results = [...$results, {race: race, time: data, points: points}]
+                } else if (points == '') {
+                    $results = [...$results, {race: race, time: time, points: data}]
+                }
+            })
         }).catch(error => {
             console.log(error);
         });
