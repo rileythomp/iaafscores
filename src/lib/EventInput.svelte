@@ -1,6 +1,6 @@
 <script>
     import { results, warning } from '../store.js';
-    import { formatSeconds, formatEvent } from '../utils.js';
+    import { formatSeconds, formatEvent, FieldEvents } from '../utils.js';
 
     let performance = '12';
     let points = '';
@@ -40,12 +40,14 @@
                     }, 3000)
                     return
                 }
-                event = formatEvent(event)
+                let evt = formatEvent(event)
                 if (performance == '') {
-                    data = formatSeconds(data)
-                    $results = [...$results, {event: event, performance: data, points: points}]
+                    if (!FieldEvents.includes(event)) {
+                        data = formatSeconds(data)
+                    }
+                    $results = [...$results, {event: evt, performance: data, points: points}]
                 } else if (points == '') {
-                    $results = [...$results, {event: event, performance: performance, points: data}]
+                    $results = [...$results, {event: evt, performance: performance, points: data}]
                 }
             })
         }).catch(error => {

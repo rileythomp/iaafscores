@@ -1,3 +1,5 @@
+export const FieldEvents = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon'];
+
 export function formatSeconds(s) {
     let hours = Math.floor(s / 3600)
     let minutes = Math.floor((s % 3600) / 60)

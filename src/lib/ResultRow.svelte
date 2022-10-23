@@ -1,6 +1,6 @@
 <script>
     import { warning } from '../store.js';
-    import { formatSeconds, formatEvent } from '../utils.js';
+    import { formatSeconds, formatEvent, FieldEvents } from '../utils.js';
 
     export let result = {event: '', performance: '', points: ''};
 
@@ -40,7 +40,11 @@
             let secondRow = e.target.parentElement.children[0].children[1]
             let performance = document.createElement('td')
 
-            performance.innerHTML = formatSeconds(data)
+            if (!FieldEvents.includes(e.target.value)) {
+                performance.innerHTML = formatSeconds(data)
+            } else {
+                performance.innerHTML = data
+            }
             performance.classList.add(className)
             secondRow.appendChild(performance)
             
