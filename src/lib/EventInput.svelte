@@ -2,7 +2,7 @@
     import { results, warning } from '../store.js';
     import { formatSeconds, formatEvent, getSecondsFromTime, FieldEvents } from '../utils.js';
 
-    let performance = '12';
+    let performance = '';
     let points = '';
     let event = '100m';
 
@@ -61,6 +61,8 @@
                 } else if (points == '') {
                     $results = [...$results, {event: evt, performance: performance, points: data}]
                 }
+                performance = ''
+                points = ''
             })
         }).catch(error => {
             console.log(error);

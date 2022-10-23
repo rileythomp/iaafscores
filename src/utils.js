@@ -16,7 +16,7 @@ export function getSecondsFromTime(time) {
         seconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
     }
     if (timeParts.length == 1) {
-        seconds = parseInt(timeParts[0]);
+        seconds = parseFloat(timeParts[0]).toFixed(2)
     }
     return seconds;
 }
