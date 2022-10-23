@@ -17,6 +17,7 @@
 	<EventInput />
 
 	<ResultsTable />
+
 	{#if warningMessage != ''}
 		<div id="warning">
 			<p>
@@ -32,7 +33,6 @@
 		border-radius: 1em;
 		width: 20em;
 		height: 10em;
-		line-height: 5em;
 		background-color: white;
 		position: absolute;
 		margin: 0 auto;
@@ -44,5 +44,6 @@
 
 	#warning p {
 		color: black;
+		margin-top: 3em;
 	}
 </style>

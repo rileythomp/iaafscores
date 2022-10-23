@@ -1,10 +1,10 @@
 <script>
     import { warning } from '../store.js';
 
-    export let result = {race: '', time: '', points: ''};
+    export let result = {event: '', performance: '', points: ''};
 
-    function addRace(e) {
-        fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?race=${e.target.value}&points=${result.points}`)
+    function addEvent(e) {
+        fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?event=${e.target.value}&points=${result.points}`)
         .then(response => response.json())
         .then(data => {
             let className = `${e.target.value}-${result.points}`
@@ -20,42 +20,42 @@
                     return
                 }
             }
-            let race = document.createElement('td')
+            let event = document.createElement('td')
             if (e.target.value == 'HalfMarathon') {
-                race.innerHTML = 'Half Marathon'
+                event.innerHTML = 'Half Marathon'
             } else {
-                race.innerHTML = e.target.value
+                event.innerHTML = e.target.value
             }
-            race.classList.add(className)
-            race.addEventListener('click', function() {
-                let times = race.parentElement.parentElement.children[1].children
-                for (let i = 0; i < times.length; i++) {
-                    if (times[i].classList.contains(race.classList[0])) {
-                        times[i].remove()
+            event.classList.add(className)
+            event.addEventListener('click', function() {
+                let performances = event.parentElement.parentElement.children[1].children
+                for (let i = 0; i < performances.length; i++) {
+                    if (performances[i].classList.contains(event.classList[0])) {
+                        performances[i].remove()
                         break
                     }
                 }
-                race.remove()
+                event.remove()
 
             })
-            firstRow.appendChild(race)
+            firstRow.appendChild(event)
 
             let secondRow = e.target.parentElement.children[0].children[1]
-            let time = document.createElement('td')
+            let performance = document.createElement('td')
             let hours = Math.floor(data / 3600)
             let minutes = Math.floor((data % 3600) / 60)
             let seconds = data % 60
             if (hours > 0) {
                 seconds = Math.round(seconds)
-                time.innerHTML = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+                performance.innerHTML = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
             } else if (minutes > 0) {
                 seconds = Math.round(seconds)
-                time.innerHTML = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+                performance.innerHTML = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
             } else {
-                time.innerHTML = `${seconds.toFixed(2)}`
+                performance.innerHTML = `${seconds.toFixed(2)}`
             }
-            time.classList.add(className)
-            secondRow.appendChild(time)
+            performance.classList.add(className)
+            secondRow.appendChild(performance)
             
             e.target.children[0].selected = true
         }).catch(error => {
@@ -64,10 +64,10 @@
     }
 
     function removeColumn(e) {
-        let times = e.target.parentElement.parentElement.children[1].children
-        for (let i = 0; i < times.length; i++) {
-            if (times[i].classList.contains(e.target.classList[0])) {
-                times[i].remove()
+        let performances = e.target.parentElement.parentElement.children[1].children
+        for (let i = 0; i < performances.length; i++) {
+            if (performances[i].classList.contains(e.target.classList[0])) {
+                performances[i].remove()
                 break
             }
         }
@@ -79,14 +79,14 @@
 <table>
     <tr>
        <td on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}>Points</td>
-       <td class="{result.race + '-' + result.points}" on:click={(e) => removeColumn(e)}>{result.race}</td>
+       <td class="{result.event + '-' + result.points}" on:click={(e) => removeColumn(e)}>{result.event}</td>
     </tr>
     <tr>
         <td>{result.points}</td>
-        <td class="{result.race + '-' + result.points}">{result.time}</td>
+        <td class="{result.event + '-' + result.points}">{result.performance}</td>
     </tr>
 </table>
-<select on:change={(e) => addRace(e)}>
+<select on:change={(e) => addEvent(e)}>
     <option hidden>+</option>
     <option value="100m">100m</option>
     <option value="200m">200m</option>
