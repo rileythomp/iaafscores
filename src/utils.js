@@ -1,5 +1,26 @@
 export const FieldEvents = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon'];
 
+export function getSecondsFromTime(time) {
+    const timeParts = time.split(':');
+    let seconds = 0;
+    if (timeParts.length == 3) {
+        if (timeParts[1].length != 2 || timeParts[2].length != 2) {
+            return 0;
+        }
+        seconds = parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
+    }
+    if (timeParts.length == 2) {
+        if (timeParts[1].length != 2) {
+            return 0;
+        }
+        seconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+    }
+    if (timeParts.length == 1) {
+        seconds = parseInt(timeParts[0]);
+    }
+    return seconds;
+}
+
 export function formatSeconds(s) {
     let hours = Math.floor(s / 3600)
     let minutes = Math.floor((s % 3600) / 60)

@@ -1,6 +1,6 @@
 <script>
     import { results, warning } from '../store.js';
-    import { formatSeconds, formatEvent, FieldEvents } from '../utils.js';
+    import { formatSeconds, formatEvent, getSecondsFromTime, FieldEvents } from '../utils.js';
 
     let performance = '12';
     let points = '';
@@ -25,7 +25,19 @@
             }, 3000);
             return
         } else if (performance != '') {
-            argVal = `performance=${performance}`
+            if (FieldEvents.includes(event)) {
+                argVal = `performance=${performance}`
+            } else {
+                let seconds = getSecondsFromTime(performance)
+                if (seconds == 0) {
+                    $warning = 'Time must be formatted as hh:mm:ss or mm:ss.';
+                    setTimeout(() => {
+                        $warning = '';
+                    }, 3000);
+                    return
+                }
+                argVal = `performance=${seconds}`
+            }
         } else if (points != '') {
             argVal = `points=${points}`
         }

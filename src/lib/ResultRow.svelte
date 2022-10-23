@@ -8,7 +8,7 @@
         fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?event=${e.target.value}&points=${result.points}`)
         .then(response => response.json())
         .then(data => {
-            let className = `${e.target.value}-${result.points}`
+            let className = `${e.target.value.split(' ').join('')}-${result.points}`
             let firstRow = e.target.parentElement.children[0].children[0]
             for (let i = 0; i < firstRow.children.length; i++) {
                 if (firstRow.children[i].classList.contains(className)) {
@@ -70,11 +70,11 @@
 <table>
     <tr>
        <td on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}>Points</td>
-       <td class="{result.event + '-' + result.points}" on:click={(e) => removeColumn(e)}>{result.event}</td>
+       <td class="{result.event.split(' ').join('') + '-' + result.points}" on:click={(e) => removeColumn(e)}>{result.event}</td>
     </tr>
     <tr>
         <td>{result.points}</td>
-        <td class="{result.event + '-' + result.points}">{result.performance}</td>
+        <td class="{result.event.split(' ').join('') + '-' + result.points}">{result.performance}</td>
     </tr>
 </table>
 <select on:change={(e) => addEvent(e)}>
