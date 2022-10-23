@@ -39,32 +39,15 @@ export function formatSeconds(s) {
 }
 
 export function formatEvent(e) {
-    if (e == 'HalfMarathon') {
-        e = 'Half Marathon'
-    }
-    else if (e == 'HJ') {
-        e = 'High Jump'
-    }
-    else if (e == 'PV') {
-        e = 'Pole Vault'
-    }
-    else if (e == 'LJ') {
-        e = 'Long Jump'
-    }
-    else if (e == 'TJ') {
-        e = 'Triple Jump'
-    }
-    else if (e == 'SP') {
-        e = 'Shot Put'
-    }
-    else if (e == 'DT') {
-        e = 'Discus'
-    }
-    else if (e == 'HT') {
-        e = 'Hammer Throw'
-    }
-    else if (e == 'JT') {
-        e = 'Javelin'
-    }
-    return e
+    return {
+        'HalfMarathon': 'Half Marathon',
+        'HJ': 'High Jump',
+        'PV': 'Pole Vault',
+        'LJ': 'Long Jump',
+        'TJ': 'Triple Jump',
+        'SP': 'Shot Put',
+        'DT': 'Discus',
+        'HT': 'Hammer Throw',
+        'JT': 'Javelin'
+    }[e] || e;
 }
