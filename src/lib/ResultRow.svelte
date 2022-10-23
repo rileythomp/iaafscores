@@ -1,5 +1,6 @@
 <script>
     import { warning } from '../store.js';
+    import { formatSeconds, formatEvent } from '../utils.js';
 
     export let result = {event: '', performance: '', points: ''};
 
@@ -21,11 +22,7 @@
                 }
             }
             let event = document.createElement('td')
-            if (e.target.value == 'HalfMarathon') {
-                event.innerHTML = 'Half Marathon'
-            } else {
-                event.innerHTML = e.target.value
-            }
+            event.innerHTML = formatEvent(e.target.value)
             event.classList.add(className)
             event.addEventListener('click', function() {
                 let performances = event.parentElement.parentElement.children[1].children
@@ -42,18 +39,8 @@
 
             let secondRow = e.target.parentElement.children[0].children[1]
             let performance = document.createElement('td')
-            let hours = Math.floor(data / 3600)
-            let minutes = Math.floor((data % 3600) / 60)
-            let seconds = data % 60
-            if (hours > 0) {
-                seconds = Math.round(seconds)
-                performance.innerHTML = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-            } else if (minutes > 0) {
-                seconds = Math.round(seconds)
-                performance.innerHTML = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-            } else {
-                performance.innerHTML = `${seconds.toFixed(2)}`
-            }
+
+            performance.innerHTML = formatSeconds(data)
             performance.classList.add(className)
             secondRow.appendChild(performance)
             
@@ -102,6 +89,15 @@
     <option value="110mH">110mH</option>
     <option value="400mH">400mH</option>
     <option value="3000mSC">3000mSC</option>
+    <option value="HJ">High Jump</option>
+    <option value="PV">Pole Vault</option>
+    <option value="LJ">Long Jump</option>
+    <option value="TJ">Triple Jump</option>
+    <option value="SP">Shot Put</option>
+    <option value="DT">Discus</option>
+    <option value="HT">Hammer Throw</option>
+    <option value="JT">Javelin</option>
+    <option value="Decathlon">Decathlon</option>
 </select>
 </div>
 

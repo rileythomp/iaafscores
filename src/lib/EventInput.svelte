@@ -1,5 +1,6 @@
 <script>
     import { results, warning } from '../store.js';
+    import { formatSeconds, formatEvent } from '../utils.js';
 
     let performance = '12';
     let points = '';
@@ -39,19 +40,9 @@
                     }, 3000)
                     return
                 }
+                event = formatEvent(event)
                 if (performance == '') {
-                    let hours = Math.floor(data / 3600)
-                    let minutes = Math.floor((data % 3600) / 60)
-                    let seconds = data % 60
-                    if (hours > 0) {
-                        seconds = Math.round(seconds)
-                        data = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-                    } else if (minutes > 0) {
-                        seconds = Math.round(seconds)
-                        data = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-                    } else {
-                        data = `${seconds.toFixed(2)}`
-                    }
+                    data = formatSeconds(data)
                     $results = [...$results, {event: event, performance: data, points: points}]
                 } else if (points == '') {
                     $results = [...$results, {event: event, performance: performance, points: data}]
