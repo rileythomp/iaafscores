@@ -103,7 +103,7 @@
         {/if}
     </select>
 
-    <input id='result-input' type="text" placeholder="Result (hh:mm:ss{includeField ? ' or metres': ''})" bind:value={performance}>
+    <input id='result-input' type="text" placeholder="Result (hh:mm:ss{includeField ? ' or meters': ''})" bind:value={performance}>
 
     <input type="text" placeholder='Points' bind:value={points}>
 
