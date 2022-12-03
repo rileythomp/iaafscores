@@ -10,7 +10,7 @@
     <div class='page-links'>
         <div class='links'>
             <a href="/">Home</a>
-            <a href="/about">About</a>
+            <a href="https://rileythomp.com/writeups#iaafscores">About</a>
         </div>
     </div>
 </div>
@@ -19,6 +19,7 @@
 <style>
     h1 {
         color: white;
+        font-size: 5em;
     }
 
     #header {
@@ -53,6 +54,7 @@
         margin-left: 2em;
         margin-right: 2em;
         color: white;
+        font-size: 1.5em;
     }
 
     .links a:hover {

@@ -11,3 +11,9 @@ Scores are based on the [World Atheltics scoring tables](https://worldathletics.
 Frontend built with Svelte and Vite.
 
 Backend done with AWS Lambda functions in Python.
+
+To run locally:
+
+```
+$ vite 
+```

@@ -114,7 +114,7 @@
         <span class="slider round"></span>
     </label>
 
-    <p class='mb0 mt03 ml05'>Include field events</p>
+    <p class='mb0 mt07  ml05'>Include field events</p>
       
 </div>
   
@@ -125,8 +125,8 @@
         margin-bottom: 0;
     }
 
-    .mt03 {
-        margin-top: 0.33em;
+    .mt07 {
+        margin-top: 0.7em;
     }
 
     .ml05 {
@@ -147,9 +147,15 @@
     select, input {
         margin-right: 2em;
         padding: 0.5em;
+        font-size: 1.25em;
+    }
+
+    button {
+        width: 3em;
     }
 
     .switch {
+        margin-top: 0.35em;
         position: relative;
         display: inline-block;
         width: 60px;

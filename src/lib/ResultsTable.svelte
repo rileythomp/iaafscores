@@ -22,5 +22,6 @@
         display: flex;  
         margin-left: 2em;
         margin-top: 1em;
+        font-size: 1.25em;
     }
 </style>
