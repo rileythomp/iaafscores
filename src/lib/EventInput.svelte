@@ -7,6 +7,8 @@
     let event = '100m';
 
     let includeField = false;
+    let gender = 'mens';
+    let season = 'outdoor';
 
     function addEvent() {
         let argVal;
@@ -42,7 +44,7 @@
             argVal = `points=${points}`
         }
         
-        fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?event=${event}&${argVal}`)
+        fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?gender=${gender}&season=${season}&event=${event}&${argVal}`)
         .then(response => {
             response.json().then(data => {
                 if (response.status != 200) {
@@ -57,9 +59,9 @@
                     if (!FieldEvents.includes(event)) {
                         data = formatSeconds(data)
                     }
-                    $results = [...$results, {event: evt, performance: data, points: points}]
+                    $results = [...$results, {event: evt, performance: data, points: points, gender: gender, season: season}]
                 } else if (points == '') {
-                    $results = [...$results, {event: evt, performance: performance, points: data}]
+                    $results = [...$results, {event: evt, performance: performance, points: data, gender: gender, season: season}]
                 }
                 performance = ''
                 points = ''
@@ -71,6 +73,14 @@
 
     function toggleField() {
         includeField = !includeField
+    }
+
+    function toggleGender() {
+        gender = gender == 'mens' ? 'womens' : 'mens'
+    }
+
+    function toggleSeason() {
+        season = season == 'indoor' ? 'outdoor' : 'indoor'
     }
 </script>
 
@@ -109,13 +119,33 @@
 
     <button on:click={addEvent}>+</button>
       
-    <label class="switch">
+</div>
+
+<div class="container">
+    <p style="margin-right: 0.5em; margin-top: 0.65em;">Mens</p>
+
+    <label on:change={toggleGender} class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
+    <p style="margin-right: 1em;" class='mb0 mt07  ml05'>Womens</p>
+
+    <p style="margin-right: 0.5em; margin-top: 0.65em; margin-left: 3em;">Outdoor</p>
+
+    <label on:change={toggleSeason} class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
+    <p style="margin-right: 1em;" class='mb0 mt07  ml05'>Indoor</p>
+
+    <label style="margin-left: 3em;" class="switch">
         <input on:change={toggleField} type="checkbox">
         <span class="slider round"></span>
     </label>
 
     <p class='mb0 mt07  ml05'>Include field events</p>
-      
 </div>
   
 
@@ -160,7 +190,6 @@
         display: inline-block;
         width: 60px;
         height: 34px;
-        margin-left: 2em;
     }
 
     .switch input { 

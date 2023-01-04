@@ -2,14 +2,14 @@
     import { warning } from '../store.js';
     import { formatSeconds, formatEvent, FieldEvents } from '../utils.js';
 
-    export let result = {event: '', performance: '', points: ''};
+    export let result = {gender: '', season: '', event: '', performance: '', points: ''};
 
     function addEvent(e) {
-        fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?event=${e.target.value}&points=${result.points}`)
+        fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?gender=${result.gender}&season=${result.season}&event=${e.target.value}&points=${result.points}`)
         .then(response => response.json())
         .then(data => {
             let className = `${e.target.value.split(' ').join('')}-${result.points}`
-            let firstRow = e.target.parentElement.children[0].children[0]
+            let firstRow = e.target.parentElement.children[0].children[1]
             for (let i = 0; i < firstRow.children.length; i++) {
                 if (firstRow.children[i].classList.contains(className)) {
                     $warning = 'This distance has already been added.'
@@ -25,19 +25,11 @@
             event.innerHTML = formatEvent(e.target.value)
             event.classList.add(className)
             event.addEventListener('click', function() {
-                let performances = event.parentElement.parentElement.children[1].children
-                for (let i = 0; i < performances.length; i++) {
-                    if (performances[i].classList.contains(event.classList[0])) {
-                        performances[i].remove()
-                        break
-                    }
-                }
-                event.remove()
-
+                removeColumn(event)
             })
             firstRow.appendChild(event)
 
-            let secondRow = e.target.parentElement.children[0].children[1]
+            let secondRow = e.target.parentElement.children[0].children[2]
             let performance = document.createElement('td')
 
             if (!FieldEvents.includes(e.target.value)) {
@@ -55,22 +47,31 @@
     }
 
     function removeColumn(e) {
-        let performances = e.target.parentElement.parentElement.children[1].children
+        let performances = e.parentElement.parentElement.children[2].children
         for (let i = 0; i < performances.length; i++) {
-            if (performances[i].classList.contains(e.target.classList[0])) {
+            if (performances[i].classList.contains(e.classList[0])) {
                 performances[i].remove()
                 break
             }
         }
-        e.target.remove()
+        e.remove()
     }
 </script>
 
 <div class='results-row container'>
 <table>
+    <caption>
+        <span
+            on:mouseover={(e) => e.target.style.color = 'red'}
+            on:mouseout={(e) => e.target.style.color = 'white'}
+            on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()} style="float: left">
+            ✕
+        </span>
+        {result.gender == 'mens' ? "Men's" : "Women's"} {result.season.charAt(0).toUpperCase() + result.season.slice(1)}
+    </caption>
     <tr>
        <td on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}>Points</td>
-       <td class="{result.event.split(' ').join('') + '-' + result.points}" on:click={(e) => removeColumn(e)}>{result.event}</td>
+       <td class="{result.event.split(' ').join('') + '-' + result.points}" on:click={(e) => removeColumn(e.target)}>{result.event}</td>
     </tr>
     <tr>
         <td>{result.points}</td>
@@ -131,6 +132,10 @@
         border-bottom: none;
     }
 
+    caption {
+        margin-bottom: 1em;
+    }
+
     select {
         width: 2.5em;
         height: 2.5em;
@@ -138,7 +143,7 @@
         text-align: center !important;
         border-radius: 0.5em;
         margin-left: 1em;
-        margin-top: 1em;
+        margin-top: 4.5em;
     }
 
 </style>
