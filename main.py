@@ -6,7 +6,7 @@ import csv
 # {string: {int: float, int: float, int: float}}
 coeffs = {}
 
-with open('performances.csv', newline='') as csvfile:
+with open('mensoutdoor.csv', newline='') as csvfile:
     perfs = list(csv.reader(csvfile))
     
 field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon']
@@ -29,7 +29,10 @@ for row in perfs:
         a = 1200/(b-t1)**c
     coeffs[event] = {'a': a, 'b': b, 'c': c}
 
-print(coeffs)
+for c in coeffs:
+    print(f"'{c}': {coeffs[c]},")
+
+exit()
 
 while True:
     user_input = input("enter event and performance (s or m): ").split()
