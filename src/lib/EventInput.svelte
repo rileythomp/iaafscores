@@ -156,7 +156,7 @@
       
 </div>
 
-<div class="container">
+<div class="container toggles">
     <p style="margin-right: 0.5em; margin-top: 0.65em;">Mens</p>
 
     <label on:change={toggleGender} class="switch">
@@ -278,5 +278,9 @@
 
     .slider.round:before {
         border-radius: 50%;
+    }
+
+    .toggles p {
+        font-size: 1.25em;
     }
 </style>
