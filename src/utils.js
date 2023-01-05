@@ -42,6 +42,7 @@ export function formatSeconds(s) {
 export function formatEvent(e) {
     return {
         'HalfMarathon': 'Half Marathon',
+        '2Miles': '2 Miles',
         '3000mSC': '3000m SC',
         '10000m': '10,000m',
         'HJ': 'High Jump',
