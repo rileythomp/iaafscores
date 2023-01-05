@@ -88,19 +88,19 @@
     <select bind:value={event} >
         {#if season == 'outdoor'}
             <option value="100m">100m</option>
+            <option value="110mH">110mH</option>
             <option value="200m">200m</option>
             <option value="400m">400m</option>
+            <option value="400mH">400mH</option>
             <option value="800m">800m</option>
             <option value="1500m">1500m</option>
             <option value="Mile">Mile</option>
             <option value="3000m">3000m</option>
+            <option value="3000mSC">3000m SC</option>
             <option value="5000m">5000m</option>
-            <option value="10000m">10000m</option>
+            <option value="10000m">10,000m</option>
             <option value="HalfMarathon">Half Marathon</option>
             <option value="Marathon">Marathon</option>
-            <option value="110mH">110mH</option>
-            <option value="400mH">400mH</option>
-            <option value="3000mSC">3000mSC</option>
         {/if}
         {#if includeField && season == 'outdoor'}
             <option value="HJ">High Jump</option>
@@ -125,8 +125,6 @@
             <option value="300m">300m</option>
             <option value="400m">400m</option>
             <option value="500m">500m</option>
-            <option value="4x200m">4x200m</option>
-            <option value="4x400m">4x400m</option>
             <option value="600m">600m</option>
             <option value="800m">800m</option>
             <option value="1000m">1000m</option>
@@ -136,6 +134,8 @@
             <option value="3000m">3000m</option>
             <option value="2Miles">2 Miles</option>
             <option value="5000m">5000m</option>
+            <option value="4x200m">4x200m</option>
+            <option value="4x400m">4x400m</option>
         {/if}
         {#if includeField && season != 'outdoor'}
             <option value="HJ">High Jump</option>
@@ -180,7 +180,7 @@
         <span class="slider round"></span>
     </label>
 
-    <p class='mb0 mt07  ml05'>Include field events</p>
+    <p class='mb0 mt07 ml05'>Include field events</p>
 </div>
   
 
