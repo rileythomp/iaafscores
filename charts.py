@@ -10,7 +10,9 @@ coeffs = {}
 with open('performances.csv', newline='') as csvfile:
     perfs = list(csv.reader(csvfile))
     
-field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon']
+field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon', 'Pentathlon', 'Heptathlon']
+
+thons = ['Decathlon', 'Pentathlon', 'Heptathlon']
     
 for row in perfs:
     event = row[0]
@@ -38,7 +40,7 @@ a = coeffs[event]['a']
 b = coeffs[event]['b']
 c = coeffs[event]['c']
 
-if event == 'Decathlon':
+if event in thons:
     y = [round(b + (p/a)**(1/c)) for p in points]
 elif event in field_events:
     y = [round(b + (p/a)**(1/c), 2) for p in points]

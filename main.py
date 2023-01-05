@@ -9,7 +9,8 @@ coeffs = {}
 with open('mensoutdoor.csv', newline='') as csvfile:
     perfs = list(csv.reader(csvfile))
     
-field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon']
+field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon', 'Heptathlon', 'Pentathlon']
+thons = ['Decathlon', 'Heptathlon', 'Pentathlon']
     
 for row in perfs:
     event = row[0]
@@ -49,7 +50,7 @@ while True:
     a = coeffs[event]['a']
     b = coeffs[event]['b']
     c = coeffs[event]['c']
-    if event == 'Decathlon':
+    if event in thons:
         print("score: ", round(b + (p/a)**(1/c)))
     elif event in field_events:
         print("distance: ", round(b + (p/a)**(1/c), 2))

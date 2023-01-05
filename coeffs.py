@@ -6,6 +6,7 @@ import numpy as np
 coeffs = {}
 
 field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon', 'Heptathlon', 'Pentathlon']
+thons = ['Decathlon', 'Heptathlon', 'Pentathlon']
 
 def time_to_seconds(t):
     time = t.split(':')[::-1]
@@ -16,7 +17,7 @@ def time_to_seconds(t):
         placeval *= 60
     return secs
 
-with open('womensindoor.csv', newline='') as csvfile:
+with open('mensindoor.csv', newline='') as csvfile:
     perfs = list(csv.reader(csvfile))
 
 for i in range(len(perfs[0])):
@@ -39,3 +40,29 @@ for i in range(len(perfs[0])):
 
 for c in coeffs:
     print(f"'{c}': {coeffs[c]},")
+
+exit()
+
+import math
+
+while True:
+    user_input = input("enter event and performance (s or m): ").split()
+    event, perf = user_input[0], float(user_input[1])
+    a = coeffs[event]['a']
+    b = coeffs[event]['b']
+    c = coeffs[event]['c']
+    if event in field_events:
+        print("points: ", math.floor(a*(perf-b)**c))
+    else:
+        print("points: ", math.floor(a*(b-perf)**c))
+    user_input = input('enter event and points: ').split()
+    event, p = user_input[0], int(user_input[1])
+    a = coeffs[event]['a']
+    b = coeffs[event]['b']
+    c = coeffs[event]['c']
+    if event in thons:
+        print("score: ", round(b + (p/a)**(1/c)))
+    elif event in field_events:
+        print("distance: ", round(b + (p/a)**(1/c), 2))
+    else:
+        print("time: ", round(b - (p/a)**(1/c), 2))

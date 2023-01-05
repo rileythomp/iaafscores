@@ -153,7 +153,8 @@ coeffs = {
     }
 }
 
-field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon']
+field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon', 'Heptathlon', 'Pentathlon']
+thons = ['Decathlon', 'Heptathlon', 'Pentathlon']
 
 def getResponse(code, msg):
     return {
@@ -162,7 +163,7 @@ def getResponse(code, msg):
     }
     
 def getEventResult(event) -> str:
-    if event == 'Decathlon':
+    if event in thons:
         return 'score'
     elif event in field_events:
         return 'distance'
@@ -252,7 +253,7 @@ def lambda_handler(event, context):
             logger.info('received points outside 0-1400')
             return getResponse(400, 'Points must be between 0-1400.')
         try:
-            if evt == 'Decathlon':
+            if evt in thons:
                 perf = round(b + (points/a)**(1/c))
             elif evt in field_events:
                 perf = round(b + (points/a)**(1/c), 2)
