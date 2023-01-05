@@ -4,16 +4,16 @@ export function getSecondsFromTime(time) {
     const timeParts = time.split(':');
     let seconds = 0;
     if (timeParts.length == 3) {
-        if (timeParts[1].length != 2 || timeParts[2].length != 2) {
+        if (timeParts[1].length < 2 || timeParts[2].length < 2) {
             return 0;
         }
-        seconds = parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
+        seconds = parseInt(timeParts[0]) * 3600 + parseInt(timeParts[1]) * 60 + parseFloat(timeParts[2]);
     }
     if (timeParts.length == 2) {
-        if (timeParts[1].length != 2) {
+        if (timeParts[1].length < 2) {
             return 0;
         }
-        seconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+        seconds = parseInt(timeParts[0]) * 60 + parseFloat(timeParts[1]);
     }
     if (timeParts.length == 1) {
         seconds = parseFloat(timeParts[0]).toFixed(2)

@@ -106,7 +106,7 @@ coeffs = {
             '15km': {'a': 5.9005748042349284e-05, 'b': 7289.493506493506, 'c': 2.0009597475997465},
             '10Miles': {'a': 5.0893050678623104e-05, 'b': 7901.259523809524, 'c': 1.9983835656427225},
             '20km': {'a': 2.8903241778765395e-05, 'b': 10159.208791208792, 'c': 2.0023585516830984},
-            'HM': {'a': 2.5814876522344016e-05, 'b': 10798.452830188678, 'c': 2.000616641732087},
+            'HalfMarathon': {'a': 2.5814876522344016e-05, 'b': 10798.452830188678, 'c': 2.000616641732087},
             '25km': {'a': 1.8373647590777927e-05, 'b': 12960.660944206009, 'c': 1.9984622634234712},
             '30km': {'a': 1.2073061811483489e-05, 'b': 15789.118063754428, 'c': 2.0017863160054543},
             'Marathon': {'a': 6.0174038751304794e-06, 'b': 22794.554552912225, 'c': 1.998893635794069},
@@ -225,8 +225,8 @@ def lambda_handler(event, context):
         b = coeffs[gender][season][evt]['b']
         c = coeffs[gender][season][evt]['c']
     except Exception as e:
-        logger.info('unable to get coefficients')
-        return getResponse(400, 'Unable to get coefficients ')
+        logger.info(f'unable to get coefficients for {gender} {season} {evt}')
+        return getResponse(400, f"{gender[0].upper()}{gender[1:-1]}'{gender[-1]} {season} {evt} not found")
         
     if 'performance' in queryParams:
         perf = float(queryParams['performance'])
@@ -240,7 +240,7 @@ def lambda_handler(event, context):
                 points = math.floor(a*(b-perf)**c)
         except Exception:
             logger.info('unexpected error calculating points')
-            return getResponse('Unexpected error calculating points.')
+            return getResponse(500, 'Unexpected error calculating points.')
         if points > 1400:
             logger.info('points greater than 1400')
             return getResponse(400, f'Invalid {evtResult}, points over 1400.')

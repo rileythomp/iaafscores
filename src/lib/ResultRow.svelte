@@ -6,41 +6,49 @@
 
     function addEvent(e) {
         fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?gender=${result.gender}&season=${result.season}&event=${e.target.value}&points=${result.points}`)
-        .then(response => response.json())
-        .then(data => {
-            let className = `${e.target.value.split(' ').join('')}-${result.points}`
-            let firstRow = e.target.parentElement.children[0].children[1]
-            for (let i = 0; i < firstRow.children.length; i++) {
-                if (firstRow.children[i].classList.contains(className)) {
-                    $warning = 'This distance has already been added.'
+        .then(response => {
+            response.json().then(data => {
+                if (response.status != 200) {
+                    $warning = data
                     setTimeout(() => {
                         $warning = ''
-                    }, 3000);
-                    e.target.children[0].selected = true
-
+                    }, 3000)
                     return
                 }
-            }
-            let event = document.createElement('td')
-            event.innerHTML = formatEvent(e.target.value)
-            event.classList.add(className)
-            event.addEventListener('click', function() {
-                removeColumn(event)
+                let className = `${e.target.value.split(' ').join('')}-${result.points}`
+                let firstRow = e.target.parentElement.children[0].children[1]
+                for (let i = 0; i < firstRow.children.length; i++) {
+                    if (firstRow.children[i].classList.contains(className)) {
+                        $warning = 'This distance has already been added.'
+                        setTimeout(() => {
+                            $warning = ''
+                        }, 3000);
+                        e.target.children[0].selected = true
+
+                        return
+                    }
+                }
+                let event = document.createElement('td')
+                event.innerHTML = formatEvent(e.target.value)
+                event.classList.add(className)
+                event.addEventListener('click', function() {
+                    removeColumn(event)
+                })
+                firstRow.appendChild(event)
+
+                let secondRow = e.target.parentElement.children[0].children[2]
+                let performance = document.createElement('td')
+
+                if (!FieldEvents.includes(e.target.value)) {
+                    performance.innerHTML = formatSeconds(data)
+                } else {
+                    performance.innerHTML = data
+                }
+                performance.classList.add(className)
+                secondRow.appendChild(performance)
+                
+                e.target.children[0].selected = true
             })
-            firstRow.appendChild(event)
-
-            let secondRow = e.target.parentElement.children[0].children[2]
-            let performance = document.createElement('td')
-
-            if (!FieldEvents.includes(e.target.value)) {
-                performance.innerHTML = formatSeconds(data)
-            } else {
-                performance.innerHTML = data
-            }
-            performance.classList.add(className)
-            secondRow.appendChild(performance)
-            
-            e.target.children[0].selected = true
         }).catch(error => {
             console.log(error);
         });
@@ -64,7 +72,8 @@
         <span
             on:mouseover={(e) => e.target.style.color = 'red'}
             on:mouseout={(e) => e.target.style.color = 'white'}
-            on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()} style="float: left">
+            on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}
+            style="float: left; margin-right: 1em;">
             ✕
         </span>
         {result.gender == 'mens' ? "Men's" : "Women's"} {result.season.charAt(0).toUpperCase() + result.season.slice(1)}
@@ -115,6 +124,7 @@
     table {
         padding: 1em;
         border-collapse: collapse;
+        width: 12em;
     }
 
     table tr :global(td) {
