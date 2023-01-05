@@ -1,6 +1,6 @@
 <script>
     import { results, warning } from '../store.js';
-    import { formatSeconds, formatEvent, getSecondsFromTime, FieldEvents } from '../utils.js';
+    import { formatSeconds, formatEvent, getSecondsFromTime, FieldEvents, Thons } from '../utils.js';
 
     let performance = '';
     let points = '';
@@ -148,7 +148,7 @@
         {/if}
     </select>
 
-    <input id='result-input' type="text" placeholder="Result (hh:mm:ss.xx{includeField ? ' or meters': ''})" bind:value={performance}>
+    <input id='result-input' type="text" placeholder="Result ({Thons.includes(event) ? 'points': FieldEvents.includes(event) ? 'meters' : 'hh:mm:ss.xx'})" bind:value={performance}>
 
     <input type="text" placeholder='Points' bind:value={points}>
 

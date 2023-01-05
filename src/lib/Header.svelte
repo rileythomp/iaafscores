@@ -10,7 +10,7 @@
     <div class='page-links'>
         <div class='links'>
             <a href="/">Home</a>
-            <a href="https://rileythomp.com/writeups#iaafscores">About</a>
+            <a target="blank" href="https://www.rileythomp.com/writeups/iaafscores.html">About</a>
         </div>
     </div>
 </div>

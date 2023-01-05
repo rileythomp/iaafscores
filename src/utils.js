@@ -1,4 +1,5 @@
 export const FieldEvents = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'Decathlon', 'Heptathlon', 'Pentathlon'];
+export const Thons = ['Decathlon', 'Heptathlon', 'Pentathlon'];
 
 export function getSecondsFromTime(time) {
     const timeParts = time.split(':');
