@@ -7,6 +7,7 @@
     let event = '100m';
 
     let includeField = false;
+    let includeRoad = false;
     let gender = 'mens';
     let season = 'outdoor';
 
@@ -75,6 +76,10 @@
         includeField = !includeField
     }
 
+    function toggleRoad() {
+        includeRoad = !includeRoad
+    }
+
     function toggleGender() {
         gender = gender == 'mens' ? 'womens' : 'mens'
     }
@@ -88,31 +93,51 @@
     <select bind:value={event} >
         {#if season == 'outdoor'}
             <option value="100m">100m</option>
-            <option value="110mH">110mH</option>
             <option value="200m">200m</option>
+            <option value="300m">300m</option>
             <option value="400m">400m</option>
+            <option value="500m">500m</option>
+            <option value="110mH">110mH</option>
             <option value="400mH">400mH</option>
+            <option value="600m">600m</option>
             <option value="800m">800m</option>
+            <option value="1000m">1000m</option>
             <option value="1500m">1500m</option>
             <option value="Mile">Mile</option>
+            <option value="2000m">2000m</option>
+            <option value="2000mSC">2000m SC</option>
             <option value="3000m">3000m</option>
             <option value="3000mSC">3000m SC</option>
+            <option value="2Miles">2 Miles</option>
             <option value="5000m">5000m</option>
             <option value="10000m">10,000m</option>
-            <option value="HalfMarathon">Half Marathon</option>
-            <option value="Marathon">Marathon</option>
-        {/if}
-        {#if includeField && season == 'outdoor'}
-            <option value="HJ">High Jump</option>
-            <option value="PV">Pole Vault</option>
-            <option value="LJ">Long Jump</option>
-            <option value="TJ">Triple Jump</option>
-            <option value="SP">Shot Put</option>
-            <option value="DT">Discus</option>
-            <option value="HT">Hammer Throw</option>
-            <option value="JT">Javelin</option>
-            <option value="Decathlon">Decathlon</option>
-            <option value="Heptathlon">Heptathlon</option>
+            <option value="4x100m">4x100m</option>
+            <option value="4x200m">4x200m</option>
+            <option value="4x400m">4x400m</option>
+            {#if includeRoad}
+                <option value="5km">Road 5km</option>
+                <option value="10km">Road 10km</option>
+                <option value="15km">15km</option>
+                <option value="10Miles">10 Miles</option>
+                <option value="20km">20km</option>
+                <option value="HalfMarathon">Half Marathon</option>
+                <option value="25km">25km</option>
+                <option value="30km">30km</option>
+                <option value="Marathon">Marathon</option>
+                <option value="100km">100km</option>
+            {/if}
+            {#if includeField}
+                <option value="HJ">High Jump</option>
+                <option value="PV">Pole Vault</option>
+                <option value="LJ">Long Jump</option>
+                <option value="TJ">Triple Jump</option>
+                <option value="SP">Shot Put</option>
+                <option value="DT">Discus</option>
+                <option value="HT">Hammer Throw</option>
+                <option value="JT">Javelin</option>
+                <option value="Decathlon">Decathlon</option>
+                <option value="Heptathlon">Heptathlon</option>
+            {/if}
         {/if}
         {#if season != 'outdoor'}
             <option value="50m">50m</option>
@@ -136,15 +161,15 @@
             <option value="5000m">5000m</option>
             <option value="4x200m">4x200m</option>
             <option value="4x400m">4x400m</option>
-        {/if}
-        {#if includeField && season != 'outdoor'}
-            <option value="HJ">High Jump</option>
-            <option value="PV">Pole Vault</option>
-            <option value="LJ">Long Jump</option>
-            <option value="TJ">Triple Jump</option>
-            <option value="SP">Shot Put</option>
-            <option value="Pentathlon">Pentathlon</option>
-            <option value="Heptathlon">Heptathlon</option>
+            {#if includeField}
+                <option value="HJ">High Jump</option>
+                <option value="PV">Pole Vault</option>
+                <option value="LJ">Long Jump</option>
+                <option value="TJ">Triple Jump</option>
+                <option value="SP">Shot Put</option>
+                <option value="Pentathlon">Pentathlon</option>
+                <option value="Heptathlon">Heptathlon</option>
+            {/if}
         {/if}
     </select>
 
@@ -181,6 +206,13 @@
     </label>
 
     <p class='mb0 mt07 ml05'>Include field events</p>
+
+    <label style="margin-left: 3em;" class="switch">
+        <input on:change={toggleRoad} type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
+    <p class='mb0 mt07 ml05'>Include road events</p>
 </div>
   
 
@@ -213,6 +245,10 @@
         margin-right: 2em;
         padding: 0.5em;
         font-size: 1.25em;
+    }
+
+    select {
+        width: 10em;
     }
 
     button {

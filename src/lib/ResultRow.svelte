@@ -70,8 +70,8 @@
 <table>
     <caption>
         <span
-            on:mouseover={(e) => e.target.style.color = 'red'}
-            on:mouseout={(e) => e.target.style.color = 'white'}
+            on:mouseover={(e) => {e.target.style.color = 'red'; document.body.style.cursor = "pointer"}}
+            on:mouseout={(e) => {e.target.style.color = 'white'; document.body.style.cursor = "auto"}}
             on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}
             style="float: left; margin-right: 1em;">
             ✕
@@ -164,6 +164,8 @@
         margin: 1em;
         border-right: 1px solid white;
         border-bottom: 1px solid white;
+        white-space: nowrap;
+        text-align: center;
     }
 
     table tr :global(td:last-child) {
