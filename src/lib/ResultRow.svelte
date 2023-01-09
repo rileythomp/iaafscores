@@ -71,7 +71,7 @@
     <caption>
         <span
             on:mouseover={(e) => {e.target.style.color = 'red'; document.body.style.cursor = "pointer"}}
-            on:mouseout={(e) => {e.target.style.color = 'white'; document.body.style.cursor = "auto"}}
+            on:mouseout={(e) => {e.target.style.color = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'white' : 'black'; document.body.style.cursor = "auto"}}
             on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}
             style="float: left; margin-right: 1em;">
             ✕
@@ -91,19 +91,37 @@
     <option hidden>+</option>
     {#if result.season == 'outdoor'}
         <option value="100m">100m</option>
-        <option value="110mH">110mH</option>
         <option value="200m">200m</option>
+        <option value="300m">300m</option>
         <option value="400m">400m</option>
+        <option value="500m">500m</option>
+        <option value="110mH">110mH</option>
         <option value="400mH">400mH</option>
+        <option value="600m">600m</option>
         <option value="800m">800m</option>
+        <option value="1000m">1000m</option>
         <option value="1500m">1500m</option>
         <option value="Mile">Mile</option>
+        <option value="2000m">2000m</option>
+        <option value="2000mSC">2000m SC</option>
         <option value="3000m">3000m</option>
         <option value="3000mSC">3000m SC</option>
+        <option value="2Miles">2 Miles</option>
         <option value="5000m">5000m</option>
         <option value="10000m">10,000m</option>
+        <option value="4x100m">4x100m</option>
+        <option value="4x200m">4x200m</option>
+        <option value="4x400m">4x400m</option>
+        <option value="5km">Road 5km</option>
+        <option value="10km">Road 10km</option>
+        <option value="15km">15km</option>
+        <option value="10Miles">10 Miles</option>
+        <option value="20km">20km</option>
         <option value="HalfMarathon">Half Marathon</option>
+        <option value="25km">25km</option>
+        <option value="30km">30km</option>
         <option value="Marathon">Marathon</option>
+        <option value="100km">100km</option>
         <option value="HJ">High Jump</option>
         <option value="PV">Pole Vault</option>
         <option value="LJ">Long Jump</option>
@@ -113,6 +131,7 @@
         <option value="HT">Hammer Throw</option>
         <option value="JT">Javelin</option>
         <option value="Decathlon">Decathlon</option>
+        <option value="Heptathlon">Heptathlon</option>
     {/if}
     {#if result.season != 'outdoor'}
         <option value="50m">50m</option>
@@ -188,6 +207,13 @@
         border-radius: 0.5em;
         margin-left: 1em;
         margin-top: 4.5em;
+    }
+
+    @media (prefers-color-scheme: light) {
+        table tr :global(td) {
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+        }
     }
 
 </style>

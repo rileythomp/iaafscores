@@ -24,4 +24,10 @@
         margin-top: 1em;
         font-size: 1.25em;
     }
+
+    @media (max-width: 1024px) {
+        #results-table {
+            margin-left: 0;
+        }
+    }
 </style>

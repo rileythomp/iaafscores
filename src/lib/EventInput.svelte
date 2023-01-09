@@ -1,5 +1,5 @@
 <script>
-    import { results, warning } from '../store.js';
+    import { results, warning, info } from '../store.js';
     import { formatSeconds, formatEvent, getSecondsFromTime, FieldEvents, Thons } from '../utils.js';
 
     let performance = '';
@@ -11,29 +11,35 @@
     let gender = 'mens';
     let season = 'outdoor';
 
+    function mobileToggle(e) {
+        let genderSeason = e.target.value
+        let parts = genderSeason.split('-')
+        gender = parts[0]
+        season = parts[1]
+    }
+
     function addEvent() {
         let argVal;
         if (performance != '' && points != '') {
-            console.log('both fields are filled')
-            $warning = 'Must enter only one of a performance or points.';
+            $warning = 'Must enter only one of a result or score.';
             setTimeout(() => {
                 $warning = '';
             }, 3000);
             return
         } else if (performance == '' && points == '') {
-            console.log('both fields are empty')
-            $warning = 'Must enter one of a performance or points.';
+            $warning = 'Must enter one of a result or score.';
             setTimeout(() => {
                 $warning = '';
             }, 3000);
             return
         } else if (performance != '') {
+            performance = performance.replace(/^0+/, '')
             if (FieldEvents.includes(event)) {
                 argVal = `performance=${performance}`
             } else {
                 let seconds = getSecondsFromTime(performance)
                 if (seconds == 0) {
-                    $warning = 'Time must be formatted as hh:mm:ss or mm:ss.';
+                    $warning = 'Time must be formatted as hh:mm:ss.xx.';
                     setTimeout(() => {
                         $warning = '';
                     }, 3000);
@@ -42,9 +48,10 @@
                 argVal = `performance=${seconds}`
             }
         } else if (points != '') {
+            points = points.replace(/^0+/, '')
             argVal = `points=${points}`
         }
-        
+
         fetch(`https://kaz3cn5qqtkrdwxnvpey7eex5q0mhokf.lambda-url.us-east-1.on.aws/?gender=${gender}&season=${season}&event=${event}&${argVal}`)
         .then(response => {
             response.json().then(data => {
@@ -66,6 +73,14 @@
                 }
                 performance = ''
                 points = ''
+            })
+            .catch(err => {
+                console.log(err)
+                $warning = 'Unexpected error calculating points.'
+                setTimeout(() => {
+                    $warning = ''
+                }, 3000)
+                return
             })
         }).catch(error => {
             console.log(error);
@@ -89,7 +104,7 @@
     }
 </script>
 
-<div class='container'>
+<div class='container' id='inputs'>
     <select bind:value={event} >
         {#if season == 'outdoor'}
             <option value="100m">100m</option>
@@ -178,41 +193,54 @@
     <input type="text" placeholder='Points' bind:value={points}>
 
     <button on:click={addEvent}>+</button>
+
+    <p id='info-button' on:click={()=>$info = true} on:mouseover={(e) => {e.target.style.fontWeight = 'bold'}} on:mouseout={(e) => {e.target.style.fontWeight='normal'}}>
+        <i class="far fa-question-circle"></i>
+    </p>
       
 </div>
 
-<div class="container toggles">
-    <p style="margin-right: 0.5em; margin-top: 0.65em;">Mens</p>
+<div class="container toggles desktop">
+    <p class="mt055" style="margin-right: 0.5em;">Mens</p>
 
     <label on:change={toggleGender} class="switch">
         <input type="checkbox">
         <span class="slider round"></span>
     </label>
 
-    <p style="margin-right: 1em;" class='mb0 mt07  ml05'>Womens</p>
+    <p style="margin-right: 1em;" class='mb0 mt06 ml05'>Womens</p>
 
-    <p style="margin-right: 0.5em; margin-top: 0.65em; margin-left: 3em;">Outdoor</p>
+    <p class="mt055" style="margin-right: 0.5em; margin-left: 3em;">Outdoor</p>
 
     <label on:change={toggleSeason} class="switch">
         <input type="checkbox">
         <span class="slider round"></span>
     </label>
 
-    <p style="margin-right: 1em;" class='mb0 mt07  ml05'>Indoor</p>
+    <p style="margin-right: 1em;" class='mb0 mt06 ml05'>Indoor</p>
 
     <label style="margin-left: 3em;" class="switch">
         <input on:change={toggleField} type="checkbox">
         <span class="slider round"></span>
     </label>
 
-    <p class='mb0 mt07 ml05'>Include field events</p>
+    <p class='mb0 mt06 ml05'>Include field events</p>
 
     <label style="margin-left: 3em;" class="switch">
         <input on:change={toggleRoad} type="checkbox">
         <span class="slider round"></span>
     </label>
 
-    <p class='mb0 mt07 ml05'>Include road events</p>
+    <p class='mb0 mt06 ml05'>Include road events</p>
+</div>
+
+<div class="container toggles mobile">
+    <select on:change={mobileToggle} >
+        <option selected value="mens-outdoor">Men's Outdoor</option>
+        <option value="mens-indoor">Men's Indoor</option>
+        <option value="womens-outdoor">Women's Outdoor</option>
+        <option value="womens-indoor">Women's Indoor</option>
+    </select>
 </div>
   
 
@@ -222,8 +250,8 @@
         margin-bottom: 0;
     }
 
-    .mt07 {
-        margin-top: 0.7em;
+    .mt06 {
+        margin-top: 0.6em;
     }
 
     .ml05 {
@@ -243,8 +271,8 @@
 
     select, input {
         margin-right: 2em;
-        padding: 0.5em;
-        font-size: 1.25em;
+        padding: 0.75em;
+        font-size: 1.5em;
     }
 
     select {
@@ -252,7 +280,9 @@
     }
 
     button {
-        width: 3em;
+        width: 2em;
+        font-size: 2em;
+        margin-right: 1.5em;
     }
 
     .switch {
@@ -317,6 +347,64 @@
     }
 
     .toggles p {
-        font-size: 1.25em;
+        font-size: 1.5em;
+    }
+
+    #info-button {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        font-size: 3em;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .mt055 {
+        margin-top: 0.55em;
+    }
+
+    @media (max-width: 1024px) {
+        #inputs {
+            padding: 0;
+            margin-top: 1em;
+            display: block;
+        }
+
+        #inputs select, input {
+            padding: 0.25em;
+        }
+
+        #inputs select {
+            width: 85vw !important;
+            margin: 0;
+            margin-bottom: 1em;
+        }
+
+        #inputs input {
+            width: 77vw !important;
+            margin: 0;
+            margin-bottom: 1em;
+        }
+
+        #inputs p {
+            display: inline;
+        }
+
+        #inputs button {
+            height: 1.5em;
+            margin-right: 1em;
+            width: 65vw;
+        }
+
+        .desktop {
+            display: none;
+        }
+
+        .mobile {
+            display: block;
+            padding-left: 0;
+        }
     }
 </style>

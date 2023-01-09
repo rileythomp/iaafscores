@@ -54,7 +54,7 @@
         margin-left: 2em;
         margin-right: 2em;
         color: white;
-        font-size: 1.5em;
+        font-size: 2em;
     }
 
     .links a:hover {
@@ -64,4 +64,38 @@
     .links a:nth-child(2) {
         margin-right: 5em;
     }
+
+    @media (max-width: 1024px) {
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        .page-title {
+            padding-left: 0;
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            float: right;
+            padding-right: 1em;
+        }
+
+        .links a {
+            margin-left: 0;
+            font-size: 1em;
+        }
+
+        .links a:nth-child(2) {
+            margin-right: 0;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        h1, .links a {
+            color: black;
+        }
+    }
+
 </style>
