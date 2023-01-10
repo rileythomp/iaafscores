@@ -46,6 +46,7 @@
 			</p>
 			<p id='info-text'>
 				This site is for comparing results of different track and field events.
+				Every result is assigned a score between 0-1400 which can then be used to compare different events.
 				To use it, enter a result to see the corresponding score, or enter a score to see the corresponding result.
 				From there you can select other events to see equivalent performances.
 				The calculator is based on the IAAF's 2022 <a href="https://worldathletics.org/news/news/scoring-tables-2022" target="blank">scoring tables</a>.
@@ -88,7 +89,7 @@
 	}
 
 	#info-text {
-		font-size: 2em;
+		font-size: 1.88em;
 	}
 
     @media (max-width: 1024px) {

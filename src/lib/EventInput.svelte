@@ -101,6 +101,7 @@
 
     function toggleSeason() {
         season = season == 'indoor' ? 'outdoor' : 'indoor'
+        event = season == 'indoor' ? '50m' : '100m'
     }
 </script>
 
@@ -189,7 +190,7 @@
     </select>
 
     <input id='result-input' type="text" placeholder="Result ({Thons.includes(event) ? 'points': FieldEvents.includes(event) ? 'meters' : 'hh:mm:ss.xx'})" bind:value={performance}>
-
+    <p style="margin-left: 1em; margin-right: 1em; font-size: 1.5em;">or</p>
     <input type="text" placeholder='Points' bind:value={points}>
 
     <button on:click={addEvent}>+</button>
@@ -220,18 +221,18 @@
     <p style="margin-right: 1em;" class='mb0 mt06 ml05'>Indoor</p>
 
     <label style="margin-left: 3em;" class="switch">
-        <input on:change={toggleField} type="checkbox">
-        <span class="slider round"></span>
-    </label>
-
-    <p class='mb0 mt06 ml05'>Include field events</p>
-
-    <label style="margin-left: 3em;" class="switch">
         <input on:change={toggleRoad} type="checkbox">
         <span class="slider round"></span>
     </label>
 
     <p class='mb0 mt06 ml05'>Include road events</p>
+
+    <label style="margin-left: 3em;" class="switch">
+        <input on:change={toggleField} type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
+    <p class='mb0 mt06 ml05'>Include field events</p>
 </div>
 
 <div class="container toggles mobile">
@@ -267,6 +268,7 @@
 
     #result-input {
         width: 15em;
+        margin-right: 0;
     }
 
     select, input {
@@ -280,7 +282,7 @@
     }
 
     button {
-        width: 2em;
+        width: 2.25em;
         font-size: 2em;
         margin-right: 1.5em;
     }
