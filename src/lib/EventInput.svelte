@@ -191,7 +191,7 @@
 
     <input id='result-input' type="text" placeholder="Result ({Thons.includes(event) ? 'points': FieldEvents.includes(event) ? 'meters' : 'hh:mm:ss.xx'})" bind:value={performance}>
     <p style="margin-left: 1em; margin-right: 1em; font-size: 1.5em;">or</p>
-    <input type="text" placeholder='Points' bind:value={points}>
+    <input id='points-input' type="text" placeholder='Points' bind:value={points}>
 
     <button on:click={addEvent}>+</button>
 
@@ -348,6 +348,10 @@
         border-radius: 50%;
     }
 
+    .toggles {
+        margin-top: 0.5em;
+    }
+
     .toggles p {
         font-size: 1.5em;
     }
@@ -398,6 +402,14 @@
             height: 1.5em;
             margin-right: 1em;
             width: 65vw;
+        }
+
+        #inputs #result-input {
+            margin-bottom: 0.25em;
+        }
+
+        #inputs #points-input {
+            margin-top: 0.25em;
         }
 
         .desktop {
