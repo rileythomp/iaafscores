@@ -29,9 +29,21 @@ export function formatSeconds(s) {
     let time = '';
     if (hours > 0) {
         seconds = Math.round(seconds)
+        if (seconds == 60) {
+            seconds = 0
+            minutes += 1
+        }
+        if (minutes == 60) {
+            minutes = 0
+            hours += 1
+        }
         time = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     } else if (minutes > 0) {
         seconds = Math.round(seconds)
+        if (seconds == 60) {
+            seconds = 0
+            minutes += 1
+        }
         time = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     } else {
         time = `${seconds.toFixed(2)}`
