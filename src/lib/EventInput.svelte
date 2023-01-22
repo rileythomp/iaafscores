@@ -11,6 +11,11 @@
     let gender = 'mens';
     let season = 'outdoor';
 
+    if (window.innerWidth < 1024) {
+        includeField = true;
+        includeRoad = true;
+    }
+
     function mobileToggle(e) {
         let genderSeason = e.target.value
         let parts = genderSeason.split('-')
