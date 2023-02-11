@@ -3,20 +3,28 @@
 
 <div id='header' class='container'>
     <div class='page-title'>
-        <h1>
-            IAAF Scores
-        </h1>
+        <a href="/">
+            <h1>
+                IAAF Scores
+            </h1>
+        </a>
+
     </div>
     <div class='page-links'>
         <div class='links'>
-            <a href="/">Home</a>
+            <a id='charts-link' href="/charts">Athlete Progression Charts</a>
+            <a href="/">Scores</a>
             <a target="blank" href="https://www.rileythomp.com/writeups/iaafscores.html">About</a>
         </div>
     </div>
 </div>
   
+<hr>
 
 <style>
+    hr {
+        margin-bottom: 2em;
+    }
     h1 {
         color: white;
         font-size: 5em;
@@ -61,7 +69,7 @@
         text-decoration: underline;
     }
 
-    .links a:nth-child(2) {
+    .links a:nth-child(3) {
         margin-right: 5em;
     }
 
@@ -87,8 +95,12 @@
             font-size: 1em;
         }
 
-        .links a:nth-child(2) {
+        .links a:nth-child(3) {
             margin-right: 0;
+        }
+
+        #charts-link {
+            display: none;
         }
     }
 

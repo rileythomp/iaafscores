@@ -1,8 +1,10 @@
 <script>
-	import EventInput from './lib/EventInput.svelte';
+// @ts-nocheck
+	import { Router, Route } from "svelte-routing";	
+	import { info, warning } from './store.js';
 	import Header from './lib/Header.svelte';
-    import ResultsTable from './lib/ResultsTable.svelte';
-	import { info, warning } from './store.js'
+	import Scores from './lib/Scores.svelte';
+    import Charts from './lib/Charts.svelte';
 
 	let warningMessage;
 
@@ -23,9 +25,11 @@
 <main>
 	<Header />
 
-	<EventInput />
-
-	<ResultsTable />
+	<Router>
+		<Route path="/" component={Scores}/>
+		<Route path="/scores" component={Scores}/>
+		<Route path="/charts" component={Charts}/>
+	</Router>
 
 	{#if warningMessage != ''}
 		<div class='popup' id="warning">
@@ -37,6 +41,8 @@
 
 	{#if infoMessage}
 		<div class='popup' id="info-message">
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 			<p
 			id='close'
 			on:mouseover={(e) => {e.target.style.color = 'red'; document.body.style.cursor = "pointer"}}

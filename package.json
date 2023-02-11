@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "page": "^1.11.6",
+    "svelte-router": "^3.0.0-alpha.2",
     "svelte-routing": "^1.6.0"
   }
 }

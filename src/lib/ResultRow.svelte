@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { warning } from '../store.js';
     import { formatSeconds, formatEvent, FieldEvents } from '../utils.js';
 
@@ -69,6 +71,8 @@
 <div class='results-row container'>
 <table>
     <caption>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-mouse-events-have-key-events -->
         <span
             on:mouseover={(e) => {e.target.style.color = 'red'; document.body.style.cursor = "pointer"}}
             on:mouseout={(e) => {e.target.style.color = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'white' : 'black'; document.body.style.cursor = "auto"}}
@@ -79,7 +83,9 @@
         {result.gender == 'mens' ? "Men's" : "Women's"} {result.season.charAt(0).toUpperCase() + result.season.slice(1)}
     </caption>
     <tr>
+       <!-- svelte-ignore a11y-click-events-have-key-events -->
        <td on:click={(e) => e.target.parentElement.parentElement.parentElement.remove()}>Points</td>
+       <!-- svelte-ignore a11y-click-events-have-key-events -->
        <td class="{result.event.split(' ').join('') + '-' + result.points}" on:click={(e) => removeColumn(e.target)}>{result.event}</td>
     </tr>
     <tr>
