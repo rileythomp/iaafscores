@@ -97,6 +97,7 @@
                             );
                         showLoading = false;
                         chart.draw(data, options);
+                        search = "";
                     })
                     .catch((err) => {
                         console.log(err);
