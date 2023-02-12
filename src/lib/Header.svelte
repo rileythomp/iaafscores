@@ -1,18 +1,25 @@
 <script>
 </script>
 
-<div id='header' class='container'>
-    <div class='page-title'><a href="/"> <h1>IAAF Scores</h1></a></div>
-    <div class='page-links'>
-        <div class='links'>
-            <a id='charts-link' href="/charts">Progression Charts</a><span id='new'>NEW</span>
-            <a href="/">Scores</a>
-            <a target="blank" href="https://www.rileythomp.com/writeups/iaafscores.html">About</a>
+<div id="header" class="container">
+    <div class="page-title"><a href="/"> <h1>IAAF Scores</h1></a></div>
+    <div class="page-links">
+        <div class="links">
+            <a id="charts-link" href="/charts">Progression Charts</a><span
+                id="new">NEW</span
+            >
+            <a class="mobile-hide" href="/">Scores</a>
+            <a
+                class="mobile-hide"
+                target="blank"
+                href="https://www.rileythomp.com/writeups/iaafscores.html"
+                >About</a
+            >
         </div>
     </div>
 </div>
-  
-<hr>
+
+<hr />
 
 <style>
     hr {
@@ -100,7 +107,6 @@
             display: flex;
             align-items: center;
             float: right;
-            padding-right: 1em;
         }
 
         .links a {
@@ -112,15 +118,26 @@
             margin-right: 0;
         }
 
-        #charts-link, #new {
+        #charts-link {
+            margin-right: 0;
+        }
+
+        hr {
+            margin: 0;
+            margin-top: 0.5em;
+            margin-bottom: 0.75em;
+        }
+
+        .mobile-hide,
+        #new {
             display: none;
         }
     }
 
     @media (prefers-color-scheme: light) {
-        h1, .links a {
+        h1,
+        .links a {
             color: black;
         }
     }
-
 </style>

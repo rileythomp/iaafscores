@@ -302,4 +302,38 @@
             transform: rotate(360deg);
         }
     }
+
+    @media (max-width: 1023px) {
+        select,
+        input,
+        button {
+            padding: 0.25em;
+            margin-bottom: 0.5em;
+            margin-right: 0;
+            width: 88.5vw;
+        }
+
+        input {
+            width: 86.5vw;
+        }
+
+        .container {
+            margin-left: 0;
+        }
+
+        #progression-chart {
+            width: 90vw;
+            margin-top: 1em;
+        }
+
+        .container {
+            text-align: center;;
+        }
+    }
+
+    @media (max-width: 767px) {
+        input {
+            width: 85vw;
+        }
+    }
 </style>
