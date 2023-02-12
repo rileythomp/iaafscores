@@ -5,7 +5,7 @@
     <div class='page-title'><a href="/"> <h1>IAAF Scores</h1></a></div>
     <div class='page-links'>
         <div class='links'>
-            <a id='charts-link' href="/charts">Athlete Progression Charts</a><span id='new'>NEW</span>
+            <a id='charts-link' href="/charts">Progression Charts</a><span id='new'>NEW</span>
             <a href="/">Scores</a>
             <a target="blank" href="https://www.rileythomp.com/writeups/iaafscores.html">About</a>
         </div>

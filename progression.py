@@ -32,6 +32,10 @@ def read_root(
         raise HTTPException(status_code=500, detail="error fetching data")
 
     res = response.json()
+
+    if len(res['data']['searchCompetitors']) < 1:
+        raise HTTPException(status_code=404, detail='no athlete found')
+
     url_slug = res['data']['searchCompetitors'][0]['urlSlug']
     url = f'https://worldathletics.org/athletes/{url_slug}'
     response = requests.get(url)
