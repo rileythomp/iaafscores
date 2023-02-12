@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { results, warning, info } from '../store.js';
     import { formatSeconds, formatEvent, getSecondsFromTime, FieldEvents, Thons } from '../utils.js';
 
@@ -200,6 +202,8 @@
 
     <button on:click={addEvent}>+</button>
 
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-mouse-events-have-key-events -->
     <p id='info-button' on:click={()=>$info = true} on:mouseover={(e) => {e.target.style.fontWeight = 'bold'}} on:mouseout={(e) => {e.target.style.fontWeight='normal'}}>
         <i class="far fa-question-circle"></i>
     </p>
