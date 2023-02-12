@@ -2,14 +2,7 @@
 </script>
 
 <div id='header' class='container'>
-    <div class='page-title'>
-        <a href="/">
-            <h1>
-                IAAF Scores
-            </h1>
-        </a>
-
-    </div>
+    <div class='page-title'><a href="/"> <h1>IAAF Scores</h1></a></div>
     <div class='page-links'>
         <div class='links'>
             <a id='charts-link' href="/charts">Athlete Progression Charts</a><span id='new'>NEW</span>

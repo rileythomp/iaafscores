@@ -15,11 +15,13 @@ app.add_middleware(
     allow_origins=origins
 )
 
+field_events = ['HJ', 'PV', 'LJ', 'TJ', 'SP', 'DT', 'HT', 'JT', 'DEC', 'HEP', 'PEN'];
+
 @app.get("/")
 def read_root(
     search: str = Query(None),
     event: str = Query(None),
-    outdoor: str = Query('outdoor'),
+    season: str = Query('outdoor'),
 ):
     url = 'https://jto4g4p7gfa6hncqfp3e24pi6q.appsync-api.eu-west-1.amazonaws.com/graphql'
     headers = {'x-api-key': 'da2-5kch5ryyuvamlcz3vbuipn6rbi'}
@@ -44,15 +46,15 @@ def read_root(
     progressions = obj['props']['pageProps']['competitor']['progressionOfSeasonsBests']
     athlete_info = obj['props']['pageProps']['competitor']['basicData']
     athlete_name = f"{athlete_info['givenName']} {athlete_info['familyName'].capitalize()}"
-    indoor = outdoor != 'outdoor' 
-
     for prog in progressions:
-        if prog['disciplineCode'] == event and prog['indoor'] == indoor:
+        if prog['disciplineCode'] == event and prog['indoor'] == (season == 'indoor'):
             discipline = prog['discipline']
             results = prog['results']
             data = [['Season', 'Performance']]
             for result in results:
-                data.append([result['season'], float(result['mark'])])
+                data.append([result['season'], float(result['mark']) if event in field_events else result['mark']])
+            if len(data) < 3:
+                raise HTTPException(status_code=404, detail='this athlete does not have enough performances in this event')
             return {'name': athlete_name, 'discipline': discipline, 'data': data}
     else:
         raise HTTPException(status_code=404, detail='couldnt find event')
