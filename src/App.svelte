@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 	import { Router, Route } from "svelte-routing";
-	import { info, warning } from "./store.js";
+	import { info, warning, chartsInfo } from "./store.js";
 	import Header from "./lib/Header.svelte";
 	import Scores from "./lib/Scores.svelte";
 	import Charts from "./lib/Charts.svelte";
@@ -57,18 +57,30 @@
 			>
 				✕
 			</p>
-			<p id="info-text">
-				This site is for comparing results of different track and field
-				events. Every result is assigned a score between 0-1400 which
-				can then be used to compare different events. To use it, enter a
-				result to see the corresponding score, or enter a score to see
-				the corresponding result. From there you can select other events
-				to see equivalent performances. The calculator is based on the
-				IAAF's 2022 <a
-					href="https://worldathletics.org/news/news/scoring-tables-2022"
-					target="blank">scoring tables</a
-				>.
-			</p>
+			{#if $chartsInfo}
+				<p id="info-text">
+					See the progression of athletes in different events over the
+					course of their careers. Simply search for an athlete and
+					select an event, then click "Generate Chart" to see how
+					their seasons bests have progressed over the years. Data is
+					from <a href="https://worldathletics.org/" target="blank"
+						>worldathletics.org</a
+					>.
+				</p>
+			{:else}
+				<p id="info-text">
+					This site is for comparing results of different track and
+					field events. Every result is assigned a score between
+					0-1400 which can then be used to compare different events.
+					To use it, enter a result to see the corresponding score, or
+					enter a score to see the corresponding result. From there
+					you can select other events to see equivalent performances.
+					The calculator is based on the IAAF's 2022 <a
+						href="https://worldathletics.org/news/news/scoring-tables-2022"
+						target="blank">scoring tables</a
+					>.
+				</p>
+			{/if}
 		</div>
 	{/if}
 </main>

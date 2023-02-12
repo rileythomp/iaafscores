@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { GoogleCharts } from "google-charts";
+    import { info, chartsInfo } from "../store.js";
 
     let showLoading = false;
     let showError = false;
@@ -131,54 +132,73 @@
 </script>
 
 <div class="container">
-    <input bind:value={search} placeholder="Athlete search" type="text" />
-    <select bind:value={event} name="" id="">
-        {#if season == "outdoor"}
-            <option value="100">100m</option>
-            <option value="200">200m</option>
-            <option value="400">400m</option>
-            <option value="110H">110mH</option>
-            <option value="400H">400mH</option>
-            <option value="800">800m</option>
-            <option value="1500">1500m</option>
-            <option value="MILE">Mile</option>
-            <option value="3KSC">3000m SC</option>
-            <option value="5000">5000m</option>
-            <option value="10K">10,000m</option>
-            <option value="HJ">High Jump</option>
-            <option value="PV">Pole Vault</option>
-            <option value="LJ">Long Jump</option>
-            <option value="TJ">Triple Jump</option>
-            <option value="SP">Shot Put</option>
-            <option value="DT">Discus</option>
-            <option value="HT">Hammer Throw</option>
-            <option value="JT">Javelin</option>
-            <option value="DEC">Decathlon</option>
-            <option value="HEP">Heptathlon</option>
-        {/if}
-        {#if season != "outdoor"}
-            <option value="60">60m</option>
-            <option value="60H">60mH</option>
-            <option value="200">200m</option>
-            <option value="400">400m</option>
-            <option value="800">800m</option>
-            <option value="1500">1500m</option>
-            <option value="MILE">Mile</option>
-            <option value="5000">5000m</option>
-            <option value="HJ">High Jump</option>
-            <option value="PV">Pole Vault</option>
-            <option value="LJ">Long Jump</option>
-            <option value="TJ">Triple Jump</option>
-            <option value="SP">Shot Put</option>
-            <option value="PEN">Pentathlon</option>
-            <option value="HEP">Heptathlon</option>
-        {/if}
-    </select>
-    <select bind:value={season} name="" id="">
-        <option selected value="outdoor">Outdoor</option>
-        <option value="indoor">Indoor</option>
-    </select>
-    <button on:click={showChart}>Generate Chart</button>
+    <div class="inputs">
+        <input bind:value={search} placeholder="Athlete search" type="text" />
+        <select bind:value={event} name="" id="">
+            {#if season == "outdoor"}
+                <option value="100">100m</option>
+                <option value="200">200m</option>
+                <option value="400">400m</option>
+                <option value="110H">110mH</option>
+                <option value="400H">400mH</option>
+                <option value="800">800m</option>
+                <option value="1500">1500m</option>
+                <option value="MILE">Mile</option>
+                <option value="3KSC">3000m SC</option>
+                <option value="5000">5000m</option>
+                <option value="10K">10,000m</option>
+                <option value="HJ">High Jump</option>
+                <option value="PV">Pole Vault</option>
+                <option value="LJ">Long Jump</option>
+                <option value="TJ">Triple Jump</option>
+                <option value="SP">Shot Put</option>
+                <option value="DT">Discus</option>
+                <option value="HT">Hammer Throw</option>
+                <option value="JT">Javelin</option>
+                <option value="DEC">Decathlon</option>
+                <option value="HEP">Heptathlon</option>
+            {/if}
+            {#if season != "outdoor"}
+                <option value="60">60m</option>
+                <option value="60H">60mH</option>
+                <option value="200">200m</option>
+                <option value="400">400m</option>
+                <option value="800">800m</option>
+                <option value="1500">1500m</option>
+                <option value="MILE">Mile</option>
+                <option value="5000">5000m</option>
+                <option value="HJ">High Jump</option>
+                <option value="PV">Pole Vault</option>
+                <option value="LJ">Long Jump</option>
+                <option value="TJ">Triple Jump</option>
+                <option value="SP">Shot Put</option>
+                <option value="PEN">Pentathlon</option>
+                <option value="HEP">Heptathlon</option>
+            {/if}
+        </select>
+        <select bind:value={season} name="" id="">
+            <option selected value="outdoor">Outdoor</option>
+            <option value="indoor">Indoor</option>
+        </select>
+        <button on:click={showChart}>Generate Chart</button>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+        <p
+            class="info-button"
+            on:click={() => {
+                $info = true;
+                $chartsInfo = true;
+            }}
+            on:mouseover={(e) => {
+                e.target.style.fontWeight = "bold";
+            }}
+            on:mouseout={(e) => {
+                e.target.style.fontWeight = "normal";
+            }}
+        >
+            <i class="far fa-question-circle" />
+        </p>
+    </div>
     {#if showLoading}
         <div class="lds-roller">
             <div />
@@ -204,12 +224,20 @@
         padding-top: 0.8em;
     }
 
+    .inputs {
+        display: flex;
+    }
+
     select,
     input,
     button {
         padding: 0.75em;
         font-size: 1.75em;
         margin-right: 2em;
+    }
+
+    button {
+        margin-right: 1em;
     }
 
     #progression-chart {
@@ -223,6 +251,55 @@
         font-size: 2em;
         text-align: center;
         margin-top: 2em;
+    }
+
+    .info-button {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        font-size: 3em;
+    }
+
+    @media (max-width: 1023px) {
+        .inputs {
+            display: block;
+        }
+
+        .info-button {
+            display: none;
+        }
+
+        select,
+        input,
+        button {
+            padding: 0.25em;
+            margin-bottom: 0.5em;
+            margin-right: 0;
+            width: 88.5vw;
+        }
+
+        input {
+            width: 86.5vw;
+        }
+
+        .container {
+            margin-left: 0;
+        }
+
+        #progression-chart {
+            width: 90vw;
+            margin-top: 1em;
+        }
+
+        .container {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 767px) {
+        input {
+            width: 85vw;
+        }
     }
 
     .lds-roller {
@@ -309,40 +386,6 @@
         }
         100% {
             transform: rotate(360deg);
-        }
-    }
-
-    @media (max-width: 1023px) {
-        select,
-        input,
-        button {
-            padding: 0.25em;
-            margin-bottom: 0.5em;
-            margin-right: 0;
-            width: 88.5vw;
-        }
-
-        input {
-            width: 86.5vw;
-        }
-
-        .container {
-            margin-left: 0;
-        }
-
-        #progression-chart {
-            width: 90vw;
-            margin-top: 1em;
-        }
-
-        .container {
-            text-align: center;
-        }
-    }
-
-    @media (max-width: 767px) {
-        input {
-            width: 85vw;
         }
     }
 
