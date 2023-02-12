@@ -6,7 +6,11 @@ import json
 
 app = FastAPI()
 
-origins = ["http://localhost:5173"]
+origins = [
+    "http://localhost:5173",
+    "https//iaafscores.com",
+    "https://iaafscores.netlify.app",
+]
 
 app.add_middleware(CORSMiddleware, allow_origins=origins)
 

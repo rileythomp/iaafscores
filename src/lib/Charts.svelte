@@ -41,7 +41,7 @@
 
     function drawChart() {
         fetch(
-            `http://localhost:8000?search=${search}&event=${event}&season=${season}`
+            `https://f92i1i.deta.dev?search=${search}&event=${event}&season=${season}`
         )
             .then((response) => {
                 response
