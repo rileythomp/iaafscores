@@ -24,6 +24,13 @@
         "PEN",
     ];
 
+    function handleChartsErr(err) {
+        console.log(err);
+        showLoading = false;
+        showError = true;
+        errMsg = `Sorry, we couldn't find any results for ${search} in the ${event}`;
+    }
+
     function timeToSeconds(time) {
         return time
             .split(":")
@@ -57,7 +64,7 @@
                                     ? "Points"
                                     : "Distances"
                             }`,
-                            titleTextStyle: { fontSize: 24 },
+                            titleTextStyle: { fontSize: 24, color: "#242424" },
                             curveType: "none",
                             legend: { position: "none" },
                         };
@@ -91,6 +98,9 @@
                             options.title = `${res.name}'s ${res.discipline} Times`;
                             options.vAxis = { ticks: ticks };
                         }
+                        document.getElementById(
+                            "progression-chart"
+                        ).style.border = "1px solid #242424";
                         let chart =
                             new GoogleCharts.api.visualization.LineChart(
                                 document.getElementById("progression-chart")
@@ -100,21 +110,19 @@
                         search = "";
                     })
                     .catch((err) => {
-                        console.log(err);
-                        showLoading = false;
-                        showError = true;
-                        errMsg = `Sorry, we couldn't find any results for ${search} in the ${event}`;
+                        handleChartsErr(err);
                         return;
                     });
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((err) => {
+                handleChartsErr(err);
                 return;
             });
     }
 
     function showChart() {
         document.getElementById("progression-chart").innerHTML = "";
+        document.getElementById("progression-chart").style.border = "";
         showLoading = true;
         showError = false;
         errMsg = "";
@@ -335,6 +343,12 @@
     @media (max-width: 767px) {
         input {
             width: 85vw;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        .lds-roller div:after {
+            background: #242424;
         }
     }
 </style>

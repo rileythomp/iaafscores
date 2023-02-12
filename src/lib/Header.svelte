@@ -137,7 +137,12 @@
     @media (prefers-color-scheme: light) {
         h1,
         .links a {
-            color: black;
+            color: #242424;
+        }
+
+        #new {
+            background-color: #242424;
+            color: white;
         }
     }
 </style>
