@@ -7,35 +7,18 @@
     let outdoor = 'outdoor';
 
     function drawChart() {
-        let rawData = [
-            ["Year", "Sales", "Expenses"],
-            ["2004", 1000, 400],
-            ["2005", 1170, 460],
-            ["2006", 660, 1120],
-            ["2007", 1030, 540],
-        ];
-
         fetch(`http://localhost:8000?search=${search}&event=${event}&outdoor=${outdoor}`)
         .then(response => {
             response.json().then(res => {
-                console.log(res);
-                rawData = res;
-                const dataTable = GoogleCharts.api.visualization.arrayToDataTable(rawData);
-
+                const data = GoogleCharts.api.visualization.arrayToDataTable(res.data);
                 var options = {
-                    title: "Athlete Progression Over Time",
-                    titleTextStyle: {
-                        fontSize: 24
-                    },
+                    title: `${res.name}'s ${res.discipline} Times`,
+                    titleTextStyle: { fontSize: 24 },
                     curveType: "none",
-                    legend: { position: "bottom" },
+                    legend: { position: "none" },
                 };
-
-                var chart = new google.visualization.LineChart(
-                    document.getElementById("progression-chart")
-                );
-
-                chart.draw(dataTable, options);
+                var chart = new google.visualization.LineChart(document.getElementById("progression-chart"));
+                chart.draw(data, options);
             })
             .catch(err => {
                 console.log(err);
@@ -53,12 +36,6 @@
 </script>
 
 <div class="container">
-    <!-- <h1>Sorry, this page is still a work in progress.</h1>
-    <br>
-    <h1>Make sure to check back later!</h1> -->
-    <!-- <div id="curve_chart" style="width: 900px; height: 500px" /> -->
-    <!-- <google-chart {data} options={{ ...options }} /> -->
-    <!-- <input type="text" name="" id=""> -->
     <input bind:value={search} placeholder='Athlete search' type="text">
     <select bind:value={event} name="" id="">
         <option selected value="100">100m</option>
@@ -73,20 +50,24 @@
 </div>
 
 <style>
-    /* h1 {
-        font-weight: 600;
-        text-align: center;
-        font-size: 3em;
-    } */
-
     .container {
         margin-left: 2em;
-        /* padding-top: 12em; */
+        padding-top: 0.8em;
+    }
+
+    .container > * {
+        margin-right: 2em;
+    }
+
+    select, input, button {
+        padding: 0.75em;
+        font-size: 1.75em;
     }
 
     #progression-chart {
         width: 80vw;
-        height: 50vh;
+        height: 60vh;
         margin: 0 auto;
+        margin-top: 2.5em;
     }
 </style>

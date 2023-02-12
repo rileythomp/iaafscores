@@ -24,6 +24,8 @@
 <style>
     hr {
         margin-bottom: 2em;
+        margin-left: 2em;
+        margin-right: 2em;
     }
     h1 {
         color: white;
