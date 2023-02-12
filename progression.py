@@ -1,10 +1,15 @@
+import os
+import json
+import requests
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-import requests
 from bs4 import BeautifulSoup
-import json
 
-app = FastAPI()
+IAAF_URL = os.getenv("IAAF_URL")
+X_API_KEY = os.getenv("X_API_KEY")
+if IAAF_URL is None or X_API_KEY is None:
+    print("Error starting IAAF progress charts server")
+    exit()
 
 origins = [
     "http://localhost:5173",
@@ -12,9 +17,11 @@ origins = [
     "https://iaafscores.netlify.app",
 ]
 
-app.add_middleware(CORSMiddleware, allow_origins=origins)
-
 field_events = ["HJ", "PV", "LJ", "TJ", "SP", "DT", "HT", "JT", "DEC", "HEP", "PEN"]
+
+app = FastAPI()
+
+app.add_middleware(CORSMiddleware, allow_origins=origins)
 
 
 @app.get("/")
@@ -23,16 +30,13 @@ def read_root(
     event: str = Query(None),
     season: str = Query("outdoor"),
 ):
-    url = (
-        "https://jto4g4p7gfa6hncqfp3e24pi6q.appsync-api.eu-west-1.amazonaws.com/graphql"
-    )
-    headers = {"x-api-key": "da2-5kch5ryyuvamlcz3vbuipn6rbi"}
+    headers = {"x-api-key": X_API_KEY}
     payload = {
         "operationName": "SearchCompetitors",
         "variables": {"query": f"{search if search is not None else ''}"},
         "query": "query SearchCompetitors($query: String, $gender: GenderType, $disciplineCode: String, $environment: String, $countryCode: String) {\n  searchCompetitors(query: $query, gender: $gender, disciplineCode: $disciplineCode, environment: $environment, countryCode: $countryCode) {\n    aaAthleteId\n    familyName\n    givenName\n    birthDate\n    disciplines\n    iaafId\n    gender\n    country\n    urlSlug\n    __typename\n  }\n}\n",
     }
-    response = requests.post(url, headers=headers, json=payload)
+    response = requests.post(IAAF_URL, headers=headers, json=payload)
 
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail="error fetching data")
