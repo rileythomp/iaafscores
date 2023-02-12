@@ -8,7 +8,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https//iaafscores.com",
+    "https://iaafscores.com",
     "https://iaafscores.netlify.app",
 ]
 
