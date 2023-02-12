@@ -12,7 +12,7 @@
     </div>
     <div class='page-links'>
         <div class='links'>
-            <a id='charts-link' href="/charts">Athlete Progression Charts</a>
+            <a id='charts-link' href="/charts">Athlete Progression Charts</a><span id='new'>NEW</span>
             <a href="/">Scores</a>
             <a target="blank" href="https://www.rileythomp.com/writeups/iaafscores.html">About</a>
         </div>
@@ -71,8 +71,26 @@
         text-decoration: underline;
     }
 
-    .links a:nth-child(3) {
+    .links a:nth-child(4) {
         margin-right: 5em;
+    }
+
+    #charts-link {
+        margin-right: 0.25em;
+    }
+
+    #new {
+        margin-right: 4em;
+        font-weight: bold;
+        background-color: white;
+        color: #242424;
+        padding: 2px 4px;
+        border-radius: 5px;
+        margin-bottom: 2em;
+    }
+
+    #new:hover {
+        cursor: pointer;
     }
 
     @media (max-width: 1024px) {
@@ -97,11 +115,11 @@
             font-size: 1em;
         }
 
-        .links a:nth-child(3) {
+        .links a:nth-child(4) {
             margin-right: 0;
         }
 
-        #charts-link {
+        #charts-link, #new {
             display: none;
         }
     }
