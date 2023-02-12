@@ -327,7 +327,7 @@
         }
 
         .container {
-            text-align: center;;
+            text-align: center;
         }
     }
 

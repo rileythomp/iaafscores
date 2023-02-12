@@ -1,25 +1,25 @@
 <script>
-    import ResultRow from './ResultRow.svelte'; 
-	import { results } from '../store.js'
-    
-	let resultList = [];
+    import ResultRow from "./ResultRow.svelte";
+    import { results } from "../store.js";
 
-    results.subscribe(value => {
+    let resultList = [];
+
+    results.subscribe((value) => {
         resultList = value;
     });
 </script>
 
-<div id='results-table' class='container'>
+<div id="results-table" class="container">
     <div>
         {#each resultList as result}
-            <ResultRow result={result}/>
+            <ResultRow {result} />
         {/each}
     </div>
 </div>
 
 <style>
     .container {
-        display: flex;  
+        display: flex;
         margin-left: 2em;
         margin-top: 1em;
         font-size: 1.25em;
