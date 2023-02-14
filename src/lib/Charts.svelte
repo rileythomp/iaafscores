@@ -45,12 +45,14 @@
             hrs == 0
                 ? Math.floor(seconds / 60)
                 : Math.floor((seconds - 3600 * hrs) / 60);
-        let secs = seconds % 60;
+        let secs = (seconds % 60).toFixed(mins > 9 || hrs > 0 ? 0 : 2);
+        if (secs >= 60) {
+            secs = 0;
+            mins += 1;
+        }
         return `${hrs > 0 ? hrs + ":" : ""}${hrs > 0 && mins < 10 ? "0" : ""}${
             mins > 0 || hrs > 0 ? mins + ":" : ""
-        }${
-            (mins > 0 || hrs > 0) && Math.ceil(secs) < 10 ? "0" : ""
-        }${secs.toFixed(mins > 9 || hrs > 0 ? 0 : 2)}`;
+        }${(mins > 0 || hrs > 0) && Math.ceil(secs) < 10 ? "0" : ""}${secs}`;
     }
 
     function drawChart() {
