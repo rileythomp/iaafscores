@@ -40,11 +40,17 @@
     }
 
     function secondsToTime(seconds) {
-        let mins = Math.floor(seconds / 60);
+        let hrs = Math.floor(seconds / 3600);
+        let mins =
+            hrs == 0
+                ? Math.floor(seconds / 60)
+                : Math.floor((seconds - 3600 * hrs) / 60);
         let secs = seconds % 60;
-        return `${mins > 0 ? mins + ":" : ""}${
-            mins > 0 && secs < 10 ? "0" : ""
-        }${secs.toFixed(2)}`;
+        return `${hrs > 0 ? hrs + ":" : ""}${hrs > 0 && mins < 10 ? "0" : ""}${
+            mins > 0 || hrs > 0 ? mins + ":" : ""
+        }${
+            (mins > 0 || hrs > 0) && Math.ceil(secs) < 10 ? "0" : ""
+        }${secs.toFixed(mins > 9 || hrs > 0 ? 0 : 2)}`;
     }
 
     function drawChart() {
@@ -147,6 +153,8 @@
                 <option value="3KSC">3000m SC</option>
                 <option value="5000">5000m</option>
                 <option value="10K">10,000m</option>
+                <option value="HMAR">Half Marathon</option>
+                <option value="MAR">Marathon</option>
                 <option value="HJ">High Jump</option>
                 <option value="PV">Pole Vault</option>
                 <option value="LJ">Long Jump</option>
