@@ -137,6 +137,11 @@
         errMsg = "";
         GoogleCharts.load(drawChart);
     }
+
+    search = 'Usain Bolt'
+    event = '100'
+    season = 'outdoor'
+    GoogleCharts.load(drawChart);
 </script>
 
 <div class="container">

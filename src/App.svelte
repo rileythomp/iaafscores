@@ -26,7 +26,7 @@
 	<Header />
 
 	<Router>
-		<Route path="/" component={Scores} />
+		<Route path="/" component={Charts} />
 		<Route path="/scores" component={Scores} />
 		<Route path="/charts" component={Charts} />
 	</Router>
